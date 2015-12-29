@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * Implements hook_node_view().
+ */
+function demo2_node_view($node, $view_mode = 'full') {
+    //only when looking at the full version, NOT the teaser
+    if ($view_mode == 'full') {
+
+        // Everytime a node is viewed, increment the node_views count
+        // in the demo2 db table by one and include the result in the node content
+
+        //Get the logged in user
+        global $user;
+
+        //Read current views from the database for the given user and node id
+        $query = db_select('demo2', 'd2')
+            ->fields('d2')
+            ->condition('nid', $node->nid)
+            ->condition('uid', $user->uid);
+        $result = $query->execute()->fetchObject();
+
+        //$result returns FALSE if no record found
+        if ($result) {
+            $views = $result->view_count + 1; //increment the view count by 1
+            $last_viewed = ($result->last_viewed_date == 0 ? time() : $result->last_viewed_date);
+        }
+        else {
+            $views = 1; //set view_count = 1 for first view record
+            $last_viewed = time();
+        }
+
+        //Insert a record in the database if the user has never viewed the node
+        //Otherwise update the count if there is an entry
+        db_merge('demo2')
+            ->key(array(
+                'nid' => $node->nid,
+                'uid' => $user->uid,
+            ))
+            ->fields(array(
+                'view_count' => $views,
+                'last_viewed_date' => time(),
+            ))
+            ->execute();
+
+
+
+        // Set up an array of placeholders to pass to t().
+        $t_args = array(
+            '%num' => $views,
+            '%date' => date('M j, Y', $last_viewed),
+        );
+
+        $node->content['node_views'] = array(
+            '#markup' => t('You have viewed this page %num times. It was last viewed by you on %date.', $t_args),
+            '#weight' => -10000,
+        );
+    }
+}

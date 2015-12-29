@@ -1,0 +1,11 @@
+<?php
+/*
+ * Implements hook_page_alert().
+ */
+function menu_mangler_page_alter(&$page) { //Parameter: page array (renderable array) Called on every page load
+    if (arg(0) == 'magic') {
+        //dsm($page);
+        $page['content']['system_main']['renderable_element']['#type'] = 'ol'; //Get path from krumo'd array on page
+        //From documentation we know that #type is parameter to theme_item_list function
+    }
+}

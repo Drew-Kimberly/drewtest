@@ -1,0 +1,7 @@
+/*
+ * Css file for images within the menu_magic module
+ */
+
+div.menu-magic-image img {
+    border: 4px solid #F70;
+}
