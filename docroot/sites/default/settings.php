@@ -732,3 +732,7 @@ $databases['default']['default'] = array (
 );
 $settings['install_profile'] = 'standard';
 $config_directories['sync'] = 'sites/drupal8.dd/files/config_wx5yP05cd2Z_uDWQqrBoL0mokwd3aDHRDHDRD-QGSkNR7RyOR7qctVixl09EnKGPR8-BIYuvGw/sync';
+
+if (file_exists('/var/www/site-php')) {
+    require '/var/www/site-php/drewtest/drewtest-settings.inc';
+}
