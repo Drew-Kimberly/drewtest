@@ -721,7 +721,7 @@ if (isset($_SERVER['DEVDESKTOP_DRUPAL_SETTINGS_DIR']) && file_exists($_SERVER['D
 }
 // </DDSETTINGS>
 $databases['default']['default'] = array (
-  'database' => 'drupal8site',
+  'database' => 'drewtest',
   'username' => 'drupaluser',
   'password' => '',
   'prefix' => '',
@@ -731,7 +731,7 @@ $databases['default']['default'] = array (
   'driver' => 'mysql',
 );
 $settings['install_profile'] = 'standard';
-$config_directories['sync'] = 'sites/drupal8site.dd/files/config_cENZO1BvIaFhNUwVfdYDw4762rIzMAe1oSZpPdhYkk50FFEwkeggpaGFMghfjItWuoPxkrKr4Q/sync';
+$config_directories['sync'] = './../sync';
 
 
 // On Acquia Cloud, this include file configures Drupal to use the correct

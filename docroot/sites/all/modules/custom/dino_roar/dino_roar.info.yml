@@ -1,0 +1,5 @@
+name: Dino Roar
+type: module
+description: This module will roar at you!
+core: 8.x
+package: Sample
